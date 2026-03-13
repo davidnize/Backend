@@ -13,12 +13,11 @@ app.get("/", async (req, res) => {
         secret: result.data.secret,
         user: result.data.username
        });
-
     } catch (error) {
         console(error.respond.data);
         res.status(500);
     }
-})
+});
 
 app.listen(port, () => {
     console.log(`server running on port ${port}`)
