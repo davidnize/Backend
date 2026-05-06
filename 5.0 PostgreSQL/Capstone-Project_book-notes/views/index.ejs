@@ -1,0 +1,54 @@
+<%- include('partials/header.ejs'); -%>
+
+<h1>📚 My Book Notes</h1>
+
+<div class="box">
+
+  <!-- ADD BOOK -->
+  <form action="/add" method="post" class="item">
+    <input type="text" name="title" placeholder="Book Title" required>
+    <input type="text" name="author" placeholder="Author">
+    <input type="number" name="rating" min="0"  max="10" step="1"  required>
+    <input type="text" name="notes" placeholder="Notes">
+
+    <button type="submit">➕ Add Book</button>
+  </form>
+
+  <hr>
+
+  <!-- BOOK LIST -->
+  <% for (let book of books) { %>
+
+    <div class="item">
+
+      <!-- COVER -->
+      <% if (book.cover_url) { %>
+        <img src="<%= book.cover_url %>" width="120">
+      <% } else { %>
+        <div style="width:120px;height:160px;background:#ccc;">
+          No Cover
+        </div>
+      <% } %>
+
+      <!-- DETAILS -->
+      <h3><%= book.title %></h3>
+      <p><strong>Author:</strong> <%= book.author %></p>
+      <p><strong>Rating:</strong> <%= book.rating %> <%= book.rating ? "⭐".repeat(book.rating) : "No rating" %></p>
+      <p><%= book.notes %></p>
+
+
+      <!-- DELETE -->
+      <form action="/delete" method="post">
+        <input type="hidden" name="deleteBookId" value="<%= book.id %>">
+        <button type="submit">❌ Delete</button>
+      </form>
+
+    </div>
+
+    <hr>
+
+  <% } %>
+
+</div>
+
+<%- include('partials/footer.ejs'); -%>
