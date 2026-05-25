@@ -1,106 +1,143 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* BODY */
 body {
-  background-color: #f5f5f5;
-  padding: 20px;
-  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  padding: 40px;
+  color: #111;
 }
 
-/* TITLE */
 h1 {
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-/* CONTAINER */
 .box {
-  max-width: 900px;
+  max-width: 1100px;
   margin: auto;
 }
 
-/* ADD FORM */
-form.item {
+.item:first-child {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
   flex-wrap: wrap;
-  justify-content: center;
+  margin-bottom: 25px;
 }
 
-form.item input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-form.item button {
-  padding: 8px 15px;
-  border: none;
-  background-color: #333;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* BOOK CARD */
 .item {
-  background: white;
-  padding: 15px;
-  margin-bottom: 20px;
-  border-radius: 10px;
   display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  text-align: left;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  gap: 25px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
 }
 
-/* COVER IMAGE */
 .item img {
-  border-radius: 5px;
-  width: 120px;
-  height: 160px;
+  width: 160px;
+  height: 230px;
   object-fit: cover;
+  border-radius: 14px;
 }
 
-/* BOOK DETAILS */
+.item div {
+  flex: 1;
+}
+
 .item h3 {
-  margin-bottom: 5px;
+  margin: 0 0 10px;
+  font-size: 2rem;
 }
 
 .item p {
-  margin-bottom: 5px;
-  font-size: 14px;
+  margin: 10px 0;
 }
 
-/* BUTTONS */
-.item button {
-  margin-top: 5px;
-  padding: 5px 10px;
+.item p:nth-of-type(1) {
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.item p:nth-of-type(2) {
+  background: #f1f1f1;
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.item p:nth-of-type(3) {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-family: Arial, sans-serif;
+  resize: both;
+  background: #f9f9f9;
+  height: 42px;
+}
+
+input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 12px 18px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
+  font-size: 1rem;
+  margin-right: 8px;
 }
 
-/* EDIT BUTTON */
-.item form button {
-  background-color: #4CAF50;
+button:hover {
+  opacity: 0.9;
+}
+
+.item:first-child button,
+form[action="/edit"] button {
+  background: #111;
   color: white;
 }
 
-/* DELETE BUTTON */
-.item form:last-child button {
-  background-color: #e74c3c;
+form[action="/delete"] button {
+  background: #e53935;
+  color: white;
 }
 
-/* HOVER EFFECT */
-.item:hover {
-  transform: scale(1.01);
-  transition: 0.2s;
+form[action="/edit"] {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+form[action="/edit"].visible {
+  display: flex;
+  align-items: center;
+}
+
+hr {
+  display: none;
+}
+
+footer {
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .item {
+    flex-direction: column;
+  }
+
+  .item img {
+    width: 100%;
+    height: auto;
+  }
 }

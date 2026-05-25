@@ -53,11 +53,11 @@ app.post("/add", async (req, res) => {
     const data = response.data.docs[0];
     // console.log(data);
 
-    const authorName = response.data.docs[0].author_name[0];
-    console.log(authorName);
+    const authorName = data.author_name[0];
+    // console.log(authorName);
 
-    const bookName = response.data.docs[0].title;
-    console.log(bookName);
+    const bookName = data.title;
+    // console.log(bookName);
 
     let cover_url = null;
 
@@ -74,29 +74,40 @@ app.post("/add", async (req, res) => {
 
     res.redirect("/");
   } catch (error) {
-    console.error(error);
-    res.redirect("/");
+    console.error(error); 
   }
 });
 
 //  EDIT BOOK
 
-// app.post("/edit", async (req, res) => {
-//   try {
-//     const { bookId, title, author, rating, notes } = req.body;
+app.post("/edit", async (req, res) => {
+  try {
+    const { bookId, title, author, rating, notes } = req.body;
+    const response = await axios.get(
+      `https://openlibrary.org/search.json?title=${title}`,
+    );
 
-//     await db.query(
-//       "UPDATE books SET title=$1, author=$2, rating=$3, notes=$4 WHERE id=$5",
-//       [title, author, rating, notes, bookId]
-//     );
+    const data = response.data.docs[0];
+    const authorName = data.author_name[0];
+    const bookName = data.title;
+    let cover_url = null;
 
-//     res.redirect("/");
+    // 2. Build cover URL if exists
+    if (data && data.cover_i) {
+      cover_url = `https://covers.openlibrary.org/b/id/${data.cover_i}-L.jpg`;
+    }
+await db.query(
+  "UPDATE books SET title=$1, author=$2, rating=$3, notes=$4, cover_url=$5 WHERE id=$6",
+  [bookName, authorName, rating, notes, cover_url, bookId]
+);
 
-//   } catch (error) {s
-//     console.error(error);
-//     res.redirect("/");
-//   }
-// });
+    res.redirect("/");
+
+  } catch (error) { 
+    console.error(error);
+    res.redirect("/");
+  }
+});
 
 //  DELETE BOOK
 
